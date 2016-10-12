@@ -111,3 +111,5 @@ be true.
 
 -   [The Seven Stages of Expertise in Software Engineering](http://www.wayland-informatics.com/The%2520Seven%2520Stages%2520of%2520Expertise%2520in%2520Software.htm).
 -   [This Paper](http://bst.sagepub.com/content/24/3/188.abstract).
+
+# TODO Translate into Bulgarian.
