@@ -27,3 +27,5 @@
  - Може да се добавят и картинки от интернет. Например `![obvious cat](https://c2.staticflickr.com/4/3172/2968416935_a4f3bd7a11.jpg)` ще покаже 
 
  ![obvious cat](https://c2.staticflickr.com/4/3172/2968416935_a4f3bd7a11.jpg)
+ 
+ - Може да се добавя код inline, като се загради с апростроф `this is some code`
