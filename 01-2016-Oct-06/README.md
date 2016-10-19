@@ -10,7 +10,7 @@
 Материалите са развити от Борис [тук](whatIsAnAlgorithm.md)
 
 ### Какво е структура от данни. Няколко примера
-Материалите са развити от Мартин [тук](whatIsADataStructure.md)
+Материалите са развити от Мартин [тук](https://github.com/martiniliev2016/domashno.git)
 
 
 -----
