@@ -7,6 +7,6 @@
 <връщан тип> <име> ([тип] [параметър1], [тип] [параметър2],...);
 
 
-<a href="http://cpp-examples.com/singlelecture.php?id=ukazatel%20kym%20funkciq">Указатели към функции</a>
-<a href="http://cpp-examples.com/c++termini.php">C++ термини</a>
-<a href="https://www.youtube.com/watch?v=vefTygoUoCI">Функции в C++ (видео)</a>
+<a href="http://cpp-examples.com/singlelecture.php?id=ukazatel%20kym%20funkciq">Указатели към функции</a> <br>
+<a href="http://cpp-examples.com/c++termini.php">C++ термини</a>  <br>
+<a href="https://www.youtube.com/watch?v=vefTygoUoCI">Функции в C++ (видео)</a>  <br>
