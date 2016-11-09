@@ -247,7 +247,7 @@ int main()
     arrayOfNumbers[1] = temp;
 
 
-    // Test - print array to check first was swapped with min
+    // Test - print array to check first was swapped with min and second with min of the rest
     for (int i=0; i < 10; ++i) {
         std::cout << arrayOfNumbers[i] << ' ';
     }
@@ -280,7 +280,7 @@ int main()
         arrayOfNumbers[i] = temp;
     }
 
-    // Test - print array to check first was swapped with min
+    // Test - print array to check that it is sorted
     for (int i=0; i < 10; ++i) {
         std::cout << arrayOfNumbers[i] << ' ';
     }
@@ -316,7 +316,7 @@ int main()
         arrayOfNumbers[i] = temp;
     }
 
-    // Test - print array to check first was swapped with min
+    // Test - print array to check that it is sorted
     for (int i=0; i < ARR_SIZE; ++i) {
         std::cout << arrayOfNumbers[i] << ' ';
     }
@@ -362,7 +362,7 @@ int main()
     // Actual problem - do a selection sort on the whole array
     selectionSort(arrayOfNumbers, ARR_SIZE);
     
-    // Test - print array to check first was swapped with min
+    // Test - print array to check that it is sorted
     for (int i=0; i < ARR_SIZE; ++i) {
         std::cout << arrayOfNumbers[i] << ' ';
     }
