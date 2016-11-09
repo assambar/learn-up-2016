@@ -205,6 +205,55 @@ int main()
     }
 }
 ```
+
+#### Да повторим това и за втория елемент
+http://codepad.org/rMrX6EOq
+```cpp
+#include <iostream>
+int main()
+{
+    // Test - use some numbers for practice
+    int arrayOfNumbers[10] = {34, 1, 89, -34, 15, 23, 3, 2, -123987, 837485};
+
+    /*
+     * Actual problem
+     * - find the minimal element
+     * - then swap it with the first element
+     * - find the minimal element (from second to last),
+     * - then swap it with the first element
+     */
+    int minPos = 0;
+    for (int i=1; i < 10; ++i) {
+        if (arrayOfNumbers[minPos] > arrayOfNumbers[i]) {
+            minPos = i;
+        }
+    }
+
+    int temp = arrayOfNumbers[minPos];
+    arrayOfNumbers[minPos] = arrayOfNumbers[0];
+    arrayOfNumbers[0] = temp;
+
+    //---------
+
+    minPos = 1;
+    for (int i=2; i < 10; ++i) {
+        if (arrayOfNumbers[minPos] > arrayOfNumbers[i]) {
+            minPos = i;
+        }
+    }
+
+    temp = arrayOfNumbers[minPos];
+    arrayOfNumbers[minPos] = arrayOfNumbers[1];
+    arrayOfNumbers[1] = temp;
+
+
+    // Test - print array to check first was swapped with min
+    for (int i=0; i < 10; ++i) {
+        std::cout << arrayOfNumbers[i] << ' ';
+    }
+}
+
+```
  
 ## Какво можем да подобрим?
  - Числото 10 е навсякъде. Ами ако искам да работя с 20 числа
