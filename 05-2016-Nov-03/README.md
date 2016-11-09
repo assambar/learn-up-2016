@@ -254,10 +254,120 @@ int main()
 }
 
 ```
- 
+Като намерим инвариантата при двете повторениея може да очертаем крайния вид на алгоритъма.
+
+#### Два вложени цикъла - единия стеснява масива, а другия търси мин. елемент и го слага в началото
+ - За брояч във външния цикъл използваме променливата `i`. Тя показва началото на несортираната част на масива.
+ - За брояч във вътрешния цикъл ще използваме променливата `j`. С нея ще обхождаме несортираната част, за да търсим минималния елемент в нея.
+```cpp
+#include <iostream>
+int main()
+{
+    // Test - use some numbers for practice
+    int arrayOfNumbers[10] = {34, 1, 89, -34, 15, 23, 3, 2, -123987, 837485};
+
+    // Actual problem - do a selection sort on the whole array
+    for (int i=0; i<10; ++i) {
+        int minPos = i;
+        for (int j=i+1; j < 10; ++j) {
+            if (arrayOfNumbers[minPos] > arrayOfNumbers[j]) {
+                minPos = j;
+            }
+        }
+
+        int temp = arrayOfNumbers[minPos];
+        arrayOfNumbers[minPos] = arrayOfNumbers[i];
+        arrayOfNumbers[i] = temp;
+    }
+
+    // Test - print array to check first was swapped with min
+    for (int i=0; i < 10; ++i) {
+        std::cout << arrayOfNumbers[i] << ' ';
+    }
+}
+```
+
 ## Какво можем да подобрим?
  - Числото 10 е навсякъде. Ами ако искам да работя с 20 числа
  - А ако искам да сортирам повече от един масиви
+
+### Нека изкараме големината в отделна променлива
+ - Така когато решим да променим размера ще направим промяна само на едно място
+
+```cpp
+#include <iostream>
+int main()
+{
+    // Test - use some numbers for practice
+    const int ARR_SIZE = 10;  // we only need to modify this line to change the size
+    int arrayOfNumbers[ARR_SIZE] = {34, 1, 89, -34, 15, 23, 3, 2, -123987, 837485};
+
+    // Actual problem - do a selection sort on the whole array
+    for (int i=0; i<ARR_SIZE; ++i) {
+        int minPos = i;
+        for (int j=i+1; j < ARR_SIZE; ++j) {
+            if (arrayOfNumbers[minPos] > arrayOfNumbers[j]) {
+                minPos = j;
+            }
+        }
+
+        int temp = arrayOfNumbers[minPos];
+        arrayOfNumbers[minPos] = arrayOfNumbers[i];
+        arrayOfNumbers[i] = temp;
+    }
+
+    // Test - print array to check first was swapped with min
+    for (int i=0; i < ARR_SIZE; ++i) {
+        std::cout << arrayOfNumbers[i] << ' ';
+    }
+}
+```
+
+#### За да преизползваме кода, най-добре е да го изкараме в отделна функция
+ - имената на променливите вътре във функцията са си за самата функция
+ - забележете как е използван документиращ коментар който описва какво прави функцията и какво означават параметрите и
+ - при подаване на масив като параметър задаваме само празни квадратни скоби `int array[]` - дори да сложим число то ще се игнорира
+ - затова е необходимо като втори параметър да предоставим дължината на масива `const int array_size`
+```cpp
+#include <iostream>
+
+/**
+ * Performs an in-place sorting of the given array of integers using
+ * the selection sort algorithm, O(n^2)
+ * 
+ * @param array[in/out] The array that will be sorted
+ * @param array_size[in] The size of the array.
+ */
+void selectionSort(int array[], const int array_size) {
+    for (int i=0; i<array_size; ++i) {
+        int minPos = i;
+        for (int j=i+1; j < array_size; ++j) {
+            if (array[minPos] > array[j]) {
+                minPos = j;
+            }
+        }
+
+        int temp = array[minPos];
+        array[minPos] = array[i];
+        array[i] = temp;
+    }
+}
+
+int main()
+{
+    // Test - use some numbers for practice
+    const int ARR_SIZE = 10;  // we only need to modify this line to change the size
+    int arrayOfNumbers[ARR_SIZE] = {34, 1, 89, -34, 15, 23, 3, 2, -123987, 837485};
+
+    // Actual problem - do a selection sort on the whole array
+    selectionSort(arrayOfNumbers, ARR_SIZE);
+    
+    // Test - print array to check first was swapped with min
+    for (int i=0; i < ARR_SIZE; ++i) {
+        std::cout << arrayOfNumbers[i] << ' ';
+    }
+}
+```
 
 # Упражнение
  - Напишете същата програма, но с метода на мехурчето - sort_05_bubble.cpp
