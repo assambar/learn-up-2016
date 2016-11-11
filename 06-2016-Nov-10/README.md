@@ -51,7 +51,59 @@ int main() {
  - оказва се, че във функцията `swapAttempt` всъщност работим с други променливи, които са копия на аргументите
  
 ## Какво е псевдоним - друго име за същата променлива
+ - името на една променлива е всъщност етикет, който слагаме на паметта в която се записва стойността на променливата
+```cpp
+// So lets declare some varialbes                  // Imagine reserved memory blocks with respective labels
+                                                   // age                       gender      hasStress
+int age = 23;                                      // +-------------------+     +----+      +----+
+char gender = 'm';                                 // |23                 |     |'m' |      |f   |
+bool hasStress = false;                            // +-------------------+     +----+      +----+
+                                                   // 
+                                                   // probabilityOfWhiteHairByAgeOf30
+double probabilityOfWhiteHairByAgeOf30 = 0.4568;   // +---------------------------------------+
+                                                   // |0.4568                                 |
+                                                   // +---------------------------------------+
+```
 
+ - езика C++ ни позволява да използваме колкото искаме различни етикети за една и съща променлива
+   - когато дефинираме допълнителен етикет (наречен псевдоним или reference), задължително трябва да укажем за коя променлива ще се използва
+   - формата на дефиницията е `<тип на променливата>& <име на нов етикет/псевдоним> = <някой от текущите етикети>;`
+   - след това може да използваме новия етикет изцяло заменимо с кой да е от останалите
+```cpp
+// I prefer to use short names.                    // Now we have two labels for each block in memory
+int& a = age;                                      // age, a                    gender, g   hasStress, hS
+char& g = gender;                                  // +-------------------+     +----+      +----+
+bool& hS = hasStress;                              // |23                 |     |'m' |      |f   |
+double& pOWHBAO30                                  // +-------------------+     +----+      +----+
+   = probabilityOfWhiteHairByAgeOf30;              // 
+                                                   // probabilityOfWhiteHairByAgeOf30, pOWHBAO30
+                                                   // +---------------------------------------+
+                                                   // |0.4568                                 |
+                                                   // +---------------------------------------+
+
+
+// I want a name that explicitly says that         // age, a, ageInYears
+// the age is in years.                            // +-------------------+ 
+int &ageInYears = a;                               // |23                 | 
+                                                   // +-------------------+ 
+
+
+// Let's check if it worked
+assert(age == 23);
+assert(ageInYears == 23);
+a = 27;
+assert(age == 27);
+assert(ageInYears == 27);
+age = 15
+assert(a == 15);
+assert(ageInYears == 15);
+
+assert(hasStress == false);
+hS = true;
+assert(hasStress == true);
+```
+
+  
 
 # Рекурсия
  - Какво е математическа индукция
