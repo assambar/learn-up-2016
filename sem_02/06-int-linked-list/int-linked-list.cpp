@@ -12,23 +12,23 @@ bool getAt(Node* s, unsigned int i, int& outData);
 void addFront(Node** s, int value);
 void removeFront(Node** s);
 
-Node* findFirst(Note* s, int value);
+Node* findFirst(Node* s, int value);
 
 int main() {
     Node* start = NULL;
 
     int tempData = -10;  // just some number
     CHECK_EQUAL(getAt(start, 0u, tempData), false); // expect false, because the list is empty
-    CHECK_EQUAL(tempData, -1); // expect that the value of tempData remained the same
+    CHECK_EQUAL(tempData, -10); // expect that the value of tempData remained the same
     CHECK_EQUAL(size(start), 0u); // expect zero size
-    CHECK_EQUAL(findFirst(start, 23), NULL);
+    CHECK_EQUAL(findFirst(start, 23), (void*)NULL);
     
     addFront(&start, 45);
     CHECK_EQUAL(size(start), 1u);
     CHECK_EQUAL(getAt(start, 0u, tempData), true);
     CHECK_EQUAL(tempData, 45);
     CHECK_EQUAL(findFirst(start, 45), start);
-    CHECK_EQUAL(findFirst(start, 23), NULL);
+    CHECK_EQUAL(findFirst(start, 23), (void*)NULL);
 
     addFront(&start, 23);
     CHECK_EQUAL(size(start), 2u);
@@ -44,15 +44,15 @@ int main() {
     CHECK_EQUAL(getAt(start, 0u, tempData), true);
     CHECK_EQUAL(tempData, 45);
     CHECK_EQUAL(findFirst(start, 45), start);
-    CHECK_EQUAL(findFirst(start, 23), NULL);
+    CHECK_EQUAL(findFirst(start, 23), (void*)NULL);
 
     removeFront(&start);
     tempData = -10;
     CHECK_EQUAL(getAt(start, 0u, tempData), false);
-    CHECK_EQUAL(tempData, -1);
+    CHECK_EQUAL(tempData, -10);
     CHECK_EQUAL(size(start), 0u);
     CHECK_EQUAL(findFirst(start, 45), start);
-    CHECK_EQUAL(findFirst(start, 23), NULL);
+    CHECK_EQUAL(findFirst(start, 23), (void*)NULL);
 }
 
 unsigned int size(Node* s)
@@ -97,7 +97,7 @@ void removeFront(Node** s)
     delete tmp;
 }
 
-Node* findFirst(Note* s, int value)
+Node* findFirst(Node* s, int value)
 {
     while(s != NULL) {
         if (s->data == value) { return s; }

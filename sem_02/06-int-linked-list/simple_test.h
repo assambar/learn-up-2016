@@ -17,8 +17,8 @@ namespace _test {
                 << lhs << "' and '" << rhs << "'" << std::endl;
   }
 
-  template<class ComparedType>
-  inline void checkEquality(const ComparedType& lhs, const ComparedType& rhs, bool expectedEqual,
+  template<class ComparedType1, class ComparedType2>
+  inline void checkEquality(const ComparedType1& lhs, const ComparedType2& rhs, bool expectedEqual,
                             const char* lhExpression, const char* rhExpression)
   {
     std::cout << ( ((lhs == rhs) == expectedEqual)? "[SUCCEEDED] " : "[FAILED   ] " )
