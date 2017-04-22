@@ -176,7 +176,7 @@ bool Customer::addOrder(int id)
 
 void Customer::increaseOrdersCapacity(unsigned int extraOrders)
 {
-    int _ordersMax = _ordersMax + extraOrders;
+    _ordersMax = _ordersMax + extraOrders;
     // allocate new space and copy current orders
     int* newOrders = new int[_ordersMax];
     for (unsigned int i=0; i<_ordersSize; i++) {
