@@ -1,4 +1,5 @@
 #include <cstring>
+#include "simple_test.h"
 
 class Customer {
 // Properties required by а)
@@ -22,6 +23,7 @@ public:
 // Methods required by г)
 public:
     const char* getName() const;
+    int getRank() const;
     unsigned int getOrdersSize() const;
     unsigned int getOrdersCapacity() const;
 
@@ -37,16 +39,53 @@ public:
 
 int main() {
     Customer c(1, "Ivan");
-    c.decRank();
-    c.decRank();
-    c.decRank();
-    c.decRank();
-    c.decRank();
+
+    std::cout << "\nTEST: valuesAfterConstruction" << std::endl;
+    CHECK_STR_EQUAL(c.getName(), "Ivan");
+    CHECK_EQUAL(c.getOrdersCapacity(), 4u);
+    CHECK_EQUAL(c.getOrdersSize(), 0u);
+    CHECK_EQUAL(c.getRank(), 0);
+
+    std::cout << "\nTEST: operationsWithName" << std::endl;
+    c.changeName("Go6o");
+    CHECK_STR_EQUAL(c.getName(), "Go6o");
+    c.appendToName(" Ivanov");
+    CHECK_STR_EQUAL(c.getName(), "Go6o Ivanov");
+    
+    std::cout << "\nTEST: operationsWithOrders" << std::endl;
+    CHECK_EQUAL(c.addOrder(3), true);
+    CHECK_EQUAL(c.getOrdersSize(), 1);
+    CHECK_EQUAL(c.addOrder(5), true);
+    CHECK_EQUAL(c.addOrder(8), true);
+    CHECK_EQUAL(c.addOrder(13), true);
+    CHECK_EQUAL(c.getOrdersSize(), 4);
+    CHECK_EQUAL(c.addOrder(21), false);
+    
     c.increaseOrdersCapacity(3);
-    c.addOrder(5);
-    c.addOrder(13);
-    c.addOrder(21);
-    c.addOrder(34);
+    CHECK_EQUAL(c.getOrdersCapacity(), 7);
+    CHECK_EQUAL(c.addOrder(21), true);
+    CHECK_EQUAL(c.getOrdersSize(), 5);
+    
+    std::cout << "\nTEST: operationsWithRank" << std::endl;
+    c.incRank();
+    CHECK_EQUAL(c.getRank(), 1);
+    c.decRank(); c.decRank(); c.decRank(); c.decRank();
+    CHECK_EQUAL(c.getRank(), -3);
+
+    std::cout << "\nTEST: copyConstruction" << std::endl;
+    Customer c2(c);
+    CHECK_STR_EQUAL(c2.getName(), c.getName());
+    CHECK_EQUAL(c2.getOrdersCapacity(), c.getOrdersCapacity());
+    CHECK_EQUAL(c2.getOrdersSize(), c.getOrdersSize());
+    CHECK_EQUAL(c2.getRank(), c.getRank());
+
+    std::cout << "\nTEST: assignmentOperator" << std::endl;
+    Customer c3(3, "Pe6o");
+    c = c3;
+    CHECK_STR_EQUAL(c3.getName(), c.getName());
+    CHECK_EQUAL(c3.getOrdersCapacity(), c.getOrdersCapacity());
+    CHECK_EQUAL(c3.getOrdersSize(), c.getOrdersSize());
+    CHECK_EQUAL(c3.getRank(), c.getRank());
 }
 
 Customer::Customer(const unsigned int id, const char* name)
@@ -107,6 +146,11 @@ Customer& Customer::operator=(const Customer& other)
 const char* Customer::getName() const
 {
     return _name;
+}
+
+int Customer::getRank() const
+{
+    return _rank;
 }
 
 unsigned int Customer::getOrdersSize() const
