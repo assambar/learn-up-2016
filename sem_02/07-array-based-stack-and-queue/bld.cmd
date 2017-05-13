@@ -3,4 +3,7 @@ set bldDir=%~dp0_build
 
 echo %bldDir%
 cd %bldDir%
-cmake ..\CMakeLists.txt
+cmake ..
+cmake --build .
+cd ..
+

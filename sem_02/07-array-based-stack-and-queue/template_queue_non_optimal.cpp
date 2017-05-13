@@ -1,53 +1,22 @@
 #include "simple_test.h"
 
-class IntQueue {
+template <class T>
+class Queue {
 public:
     static const int MAX_SIZE = 100;
 
-    IntQueue() : start(-1), end(-1) {}
+    Queue() : start(-1), end(-1) {}
+    bool push(T value);
+    bool peek(T& out) const;
+    bool pop();
+    bool isEmpty() const;
 
-    bool push(int value) {
-        if ((end + 1) % MAX_SIZE == start) {
-            return false;  // Cannot push. We are full
-        }
-        end = (end + 1) % MAX_SIZE;
-        values[end] = value;
-        if (start == -1) {
-            start = end;
-        }
-        return true;
-    }
-
-    bool peek(int& out) const {
-        if (isEmpty()) {
-            return false;
-        }
-        out = values[start];
-        return true;
-    }
-
-    bool pop() {
-        if (isEmpty()) {
-            return false;
-        }
-        
-        if (start == end) { // We have just one element
-            start = end = -1;
-        } else {
-            start = (start + 1) % MAX_SIZE;
-        }
-        return true;
-    }
-
-    bool isEmpty() const {
-        return start == -1 && end == -1;
-    }
-
-    friend std::ostream& operator<<(std::ostream& o, const IntQueue& q) {
+    // Template friends have to be inlined
+    friend std::ostream& operator<<(std::ostream& o, const Queue<T>& q) {
         if (q.isEmpty()) {
-            o << "IntQueue(EMPTY)";
+            o << "Queue(EMPTY)";
         } else {
-            o << "IntQueue(start=" << q.start << ",end=" << q.end << ", values={ ";
+            o << "Queue(start=" << q.start << ",end=" << q.end << ", values={ ";
             for (int i = q.start; i != q.end; i = (i+1)%MAX_SIZE) {
                 o << q.values[i] << " ";
             }
@@ -58,11 +27,12 @@ public:
 
 private:
     int start, end;
-    int values[MAX_SIZE];
+    T values[MAX_SIZE];
 };
+// Definitions bellow main
 
 int main() {
-    IntQueue q;
+    Queue<int> q;
     int tmp;
 
     // TestEmptyQueue
@@ -95,7 +65,7 @@ int main() {
 
     // TestFull
     bool allPushPass = true;
-    for (int i=0; i<IntQueue::MAX_SIZE; i++) {
+    for (int i=0; i<Queue<int>::MAX_SIZE; i++) {
         allPushPass = allPushPass && q.push(i);
     }
     CHECK_EQUAL(allPushPass, true);
@@ -107,3 +77,48 @@ int main() {
 
     return 0;
 }
+
+
+
+
+template <class T>
+bool Queue<T>::push(T value) {
+    if ((end + 1) % MAX_SIZE == start) {
+        return false;  // Cannot push. We are full
+    }
+    end = (end + 1) % MAX_SIZE;
+    values[end] = value;
+    if (start == -1) {
+        start = end;
+    }
+    return true;
+}
+
+template <class T>
+bool Queue<T>::peek(T& out) const {
+    if (isEmpty()) {
+        return false;
+    }
+    out = values[start];
+    return true;
+}
+
+template <class T>
+bool Queue<T>::pop() {
+    if (isEmpty()) {
+        return false;
+    }
+    
+    if (start == end) { // We have just one element
+        start = end = -1;
+    } else {
+        start = (start + 1) % MAX_SIZE;
+    }
+    return true;
+}
+
+template <class T>
+bool Queue<T>::isEmpty() const {
+    return start == -1 && end == -1;
+}
+
